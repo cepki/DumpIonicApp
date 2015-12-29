@@ -1,0 +1,45 @@
+{
+  "ProjectName": "DUMPIonicTestAppMario",
+  "ProjectGuid": "5f1b37ba-c511-434a-8697-c2939a3fd279",
+  "projectVersion": 1,
+  "AppIdentifier": "com.telerik.DUMPIonicTestAppMario",
+  "DisplayName": "DUMPIonicTestAppMario",
+  "Author": "",
+  "Description": "DUMPIonicTestAppMario",
+  "BundleVersion": "1.0",
+  "AndroidVersionCode": "1",
+  "iOSDeviceFamily": [
+    "1",
+    "2"
+  ],
+  "iOSBackgroundMode": [],
+  "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
+  "FrameworkVersion": "3.7.0",
+  "AndroidPermissions": [
+    "android.permission.INTERNET"
+  ],
+  "DeviceOrientations": [
+    "Portrait",
+    "Landscape"
+  ],
+  "AndroidHardwareAcceleration": "false",
+  "iOSStatusBarStyle": "Default",
+  "Framework": "Cordova",
+  "WP8TileTitle": "",
+  "WP8Publisher": "",
+  "WP8Capabilities": [
+    "ID_CAP_NETWORKING",
+    "ID_CAP_WEBBROWSERCOMPONENT"
+  ],
+  "WP8Requirements": [],
+  "WP8PublisherID": "{7632b8f6-a8e8-45e9-a51c-29290d530ef2}",
+  "WP8ProductID": "{376c4fb0-46b0-4bac-991c-9c3bc6ed0a2e}",
+  "WPSdk": "8.0",
+  "WP8PackageIdentityName": "1234Telerik.DUMPIonicTestAppMario",
+  "WP8WindowsPublisherName": "CN=Telerik",
+  "WP8SupportedResolutions": [
+    "ID_RESOLUTION_WVGA",
+    "ID_RESOLUTION_WXGA",
+    "ID_RESOLUTION_HD720P"
+  ]
+}
