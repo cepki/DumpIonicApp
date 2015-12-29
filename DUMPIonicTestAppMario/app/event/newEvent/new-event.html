@@ -1,23 +1,81 @@
+<style>
+    .error-container {
+        margin: 5px 0;
+    }
+     
+    /*.error-container:last-child {
+        margin: 5px 0 0;
+    }*/
+     
+    .error {
+      padding: 10px 16px;
+      font-family: "Arial Black", Gadget, sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #555;
+      vertical-align: middle;
+    }
+     
+    .error i {
+      font-size: 24px;
+      color: #B83E2C;  
+      vertical-align: middle;
+    }
+     
+    .last-error-container > .error {
+      padding: 10px 16px 0;
+    }
+     
+    .has-errors {
+      border-bottom: 3px solid #B83E2C;
+    }
+     
+    .no-errors {
+      border-bottom: 3px green;
+    }
+</style>
+
+<script id="error-list.html" type="text/ng-template">
+    <div class="error" ng-message="required">
+        <i class="ion-information-circled"></i>
+        This field is required!
+    </div>
+    <div class="error" ng-message="minlength" style="font-size:8px;">
+        <i class="ion-information-circled"></i>
+        Minimum length of this field is 10 characters!
+    </div>
+</script>  
+
 <ion-content class="has-header">
 
-    <label class="item item-input">
-        <span class="input-label">Od kad:</span>
-        <input type="date">
-    </label>
-
-    <label class="item item-input">
-        <span class="input-label">Do kad:</span>
-        <input type="date">
-    </label>
-
-    <label class="item item-input">
-        <span class="input-label">Trajanje</span>
-        <input type="time" ng-readonly="true" />
-    </label>
+    <form name="authorizationForm" novalidate="" ng-submit="vm.addNewEvent(authorizationForm)">
+        <label class="item item-input">
+            <span class="input-label kurac">Od kad:</span>
+            <input type="datetime-local" ng-model="vm.authorizationForm.startTime">
+        </label>        
 
 
-    <label class="item item-input">
-        <span class="input-label">Trajanje</span>
-        <input type="time" ng-readonly="true" />
-    </label>
+        <label class="item item-input">
+            <span class="input-label">Do kad:</span>
+            <input type="datetime-local" placeholder="yyyy-MM-ddTHH:mm:ss" ng-model="vm.authorizationForm.endTime">
+        </label>
+
+        <label class="item item-input">
+            <span class="input-label">Opis</span>
+            <input type="text"  name="description" ng-model="vm.authorizationForm.description" ng-minlength="10" required/>
+        </label>
+        <div class="error-container" ng-show="(authorizationForm.description.$error && authorizationForm.description.$dirty) || (authorizationForm.description.$error && authorizationForm.$submitted)" ng-messages="authorizationForm.description.$error">
+            <div ng-messages-include="error-list.html"></div>
+        </div>
+        <label class="item item-input">
+            <span class="input-label">Trajanje</span>
+            <input type="text" ng-model="vm.authorizationForm.duration" ng-readonly="true" />
+            <span class="input-label" style="margin-left:-38px">minuta</span>
+        </label>
+
+        <button class="button button-full button-positive" type="submit">
+            Sign In
+        </button>
+
+    </form>
 </ion-content>

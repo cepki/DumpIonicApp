@@ -1,19 +1,46 @@
     (function () {
     'use strict'
 
-    angular.module("scheduleApp").controller("NewEventController", [NewEventController]);
+    angular.module("scheduleApp").controller("NewEventController", ['$scope', '$state', NewEventController]);
 
-    function NewEventController() {
+    function NewEventController($scope, $state) {
         var vm = this;
+        this.description = {};
+        var now = new Date(Date.now());
 
-        vm.time = "1:23";
-
-        vm.kurac = function () {
-            alert("JKSAKR");
+        function getTwoDatesDiffrenceInTime(firstDate, secondDate) {
+            var diffrence = Math.abs(secondDate - firstDate);
+            var minutesDiffrence = Math.floor((diffrence / 1000) / 60);
+            return minutesDiffrence;
         }
 
+        vm.authorizationForm = {
+            description: "dsa",
+            startTime: new Date(now.getFullYear(), now.getMonth(), now.getDay(), now.getHours(), now.getMinutes()),
+            endTime: new Date(now.getFullYear(), now.getMonth(), now.getDay(), now.getHours(), now.getMinutes()),
+            duration: getTwoDatesDiffrenceInTime(Date.now(), Date.now())
+        };
 
-        console.log("U controlleru sam");
+
+        $scope.$watch(angular.bind(this, function () {
+            return this.authorizationForm.startTime;
+        }), function (newVal, oldVal) {
+            if(newVal > vm.authorizationForm.endTime)
+            {
+                console.log("Novi je veci od starog");
+                vm.authorizationForm.endTime = newVal;
+            }
+            vm.authorizationForm.duration = getTwoDatesDiffrenceInTime(vm.authorizationForm.endTime, vm.authorizationForm.startTime);
+        });
+
+        $scope.$watch(angular.bind(this, function () {
+            return this.authorizationForm.endTime; 
+        }), function (newVal, oldVal) {
+            if (newVal > vm.authorizationForm.endTime) {
+                console.log("Novi je veci od starog");
+                vm.authorizationForm.endTime = newVal;
+            }
+        });
 
         vm.addPreparedObligation = function(obligationId)
         {
@@ -22,8 +49,20 @@
 
         vm.goBack = function()
         {
-
-            //provjerit jel ijedan od inputa taknut, ako nije onda nema popupa, ako je onda daj popup
+            $state.go('/home');
         }
+
+
+        vm.addNewEvent = function(submitedForm)
+        {
+            console.log(submitedForm);
+            if (submitedForm.$valid)
+            {
+                console.log("Uspjesno");
+            } else {
+                console.log("Nije poslano");
+            }
+        }
+
     };
 })();

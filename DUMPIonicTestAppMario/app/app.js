@@ -1,4 +1,4 @@
-angular.module("scheduleApp", ["ionic"])
+angular.module("scheduleApp", ["ionic", "ngMessages"])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
