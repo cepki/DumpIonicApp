@@ -24,6 +24,7 @@
     <Content Include="app\app.js" />
     <Content Include="app\event\newEvent\new-event.html" />
     <Content Include="app\home\home-controller.js" />
+    <Content Include="app\home\home-layout.html" />
     <Content Include="app\home\home.html" />
     <Content Include="app\event\newEvent\new-event-controller.js" />
     <Content Include="app\event\event-layout.html" />
@@ -81,6 +82,7 @@
     <Content Include="lib\ionic\js\ionic-angular.min.js">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="lib\ionic\js\ionic-datepicker.bundle.min.js" />
     <Content Include="lib\ionic\js\ionic.bundle.js">
       <SubType>Content</SubType>
     </Content>

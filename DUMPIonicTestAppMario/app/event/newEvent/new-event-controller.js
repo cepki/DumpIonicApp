@@ -49,7 +49,7 @@
 
         vm.goBack = function()
         {
-            $state.go('/home');
+            $state.go('home.main');
         }
 
 

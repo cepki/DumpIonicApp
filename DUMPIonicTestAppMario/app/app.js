@@ -1,4 +1,4 @@
-angular.module("scheduleApp", ["ionic", "ngMessages"])
+angular.module("scheduleApp", ["ionic", "ngMessages", 'ionic-datepicker'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -15,17 +15,28 @@ angular.module("scheduleApp", ["ionic", "ngMessages"])
 
 .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-    .state('/home', {
+
+    .state('home', {
+        abstract: true,
         url: "/home",
-        templateUrl: "/app/home/home.html",
-        controller: "HomeController as vm"
+        templateUrl: "/app/home/home-layout.html",
+        controller: "HomeController as vm",
+    })
+    
+    .state('home.main', {
+        url: "/main",
+        views: {
+            "mainContentForHome": {
+                templateUrl: "/app/home/home.html"
+            }
+        }
     })
 
     .state('event', {
         abstract: true,
         url: "/event",
         templateUrl: "/app/event/event-layout.html",
-        controller: "NewEventController as vm"
+        controller: "NewEventController as vm",
     })
 
     .state('event.newEvent', {
@@ -35,7 +46,6 @@ angular.module("scheduleApp", ["ionic", "ngMessages"])
                 templateUrl: "/app/event/newEvent/new-event.html"
             }
         },
-
     });
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/home/main');
 });
