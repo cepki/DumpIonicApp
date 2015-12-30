@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\event\newEvent\event-validation-templates.html" />
     <Content Include="app\event\newEvent\new-event.html" />
     <Content Include="app\home\home-controller.js" />
     <Content Include="app\home\home-layout.html" />
@@ -29,6 +30,7 @@
     <Content Include="app\event\newEvent\new-event-controller.js" />
     <Content Include="app\event\event-layout.html" />
     <Content Include="app\ionic-utils.js" />
+    <Content Include="css\new-event.css" />
     <Content Include="lib\ionic\css\ionic.css">
       <SubType>Content</SubType>
     </Content>

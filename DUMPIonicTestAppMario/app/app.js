@@ -23,13 +23,13 @@ angular.module("scheduleApp", ["ionic", "ngMessages", 'ionic-datepicker', 'ionic
                 startTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), 17, 20),
                 endTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), 19, 10),
                 duration: 110,
-                description: "Jutarnje rekreacijsko plivanje"
+                description: "Popodnevno rekreacijsko plivanje"
             })
             $localstorage.setObject('fakultet', {
                 startTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), 8, 0),
                 endTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), 14, 0),
                 duration: 360,
-                description: "Jutarnje rekreacijsko plivanje"
+                description: "Fakultet"
             })
         }
 

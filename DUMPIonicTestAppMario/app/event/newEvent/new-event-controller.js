@@ -1,9 +1,9 @@
     (function () {
     'use strict'
 
-    angular.module("scheduleApp").controller("NewEventController", ['$scope', '$state', '$localstorage', NewEventController]);
+    angular.module("scheduleApp").controller("NewEventController", ['$scope', '$state', '$localstorage', '$ionicPopup', NewEventController]);
 
-    function NewEventController($scope, $state, $localstorage) {
+    function NewEventController($scope, $state, $localstorage, $ionicPopup) {
         var vm = this;
         this.description = {};
         var now = new Date(Date.now());
@@ -17,7 +17,7 @@
         }
 
         vm.authorizationForm = {
-            description: "dssadadsasddsaasda",
+            //description: "dssadadsasddsaasda",
             startTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), now.getHours(), now.getMinutes()),
             endTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), now.getHours(), now.getMinutes()),
             duration: getTwoDatesDiffrenceInTime(Date.now(), Date.now())
@@ -44,14 +44,45 @@
             }
         });
 
-        vm.addPreparedObligation = function(obligationId)
+        vm.addPreparedObligation = function (preparedObligationKey)
         {
-            alert("HEHEHE" + obligationId);
+            var clickedObligation = $localstorage.getObject(preparedObligationKey);
+            var startTime = new Date(clickedObligation.startTime);
+            var endTime = new Date(clickedObligation.endTime);
+
+            console.log(startTime.getHours());
+
+            vm.authorizationForm = {
+                description: clickedObligation.description,
+                startTime: new Date(startTime.getFullYear(), startTime.getMonth(), startTime.getUTCDate(), startTime.getHours(), startTime.getMinutes()),
+                endTime: new Date(endTime.getFullYear(), endTime.getMonth(), endTime.getUTCDate(), endTime.getHours(), endTime.getMinutes()),
+                duration: clickedObligation.duration
+            };
+
+            console.log(vm.authorizationForm.startTime);
         }
 
         vm.goBack = function()
         {
-            $state.go('home.main');
+            if (!!vm.authorizationForm.description)
+            {
+                var confirmPopup = $ionicPopup.confirm({
+                    title: 'Odustani',
+                    template: 'Jeste sigurni da zelite odustat od dodavanja?'
+                });
+
+                confirmPopup.then(function (res) {
+                    if (res) {
+                        $state.go('home.main');
+                    } else {
+
+                    }
+                });
+            }
+            else
+            {
+                $state.go('home.main');
+            }
         }
 
 

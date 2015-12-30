@@ -20,33 +20,28 @@
 
         vm.deleteObligation = function (obligationToDelete)
         {
-            (function () {
-                var confirmPopup = $ionicPopup.confirm({
-                    title: 'Izbrisi obavezu',
-                    template: 'Jesi siguran da zelis maknit ovo?'
-                });
+            var confirmPopup = $ionicPopup.confirm({
+                title: 'Izbrisi obavezu',
+                template: 'Jesi siguran da zelis maknit ovo?'
+            });
 
-                confirmPopup.then(function (res) {
-                    if (res) {
-                        console.log("DELETING");
-                        var allObligations = $localstorage.getObject("all-obligations").allObligations;
-                        console.log(allObligations.splice(allObligations.indexOf(obligationToDelete), 1));
-                        $localstorage.setObject("all-obligations", {
-                            allObligations: allObligations.splice(allObligations.indexOf(obligationToDelete), 1)
-                        });
-                        $state.reload();
-                    } else {
-                        $state.reload();
-                    }
-                });
-            })();
-            
-
+            confirmPopup.then(function (res) {
+                if (res) {
+                    var allObligations = $localstorage.getObject("all-obligations").allObligations;
+                    console.log(allObligations.splice(allObligations.indexOf(obligationToDelete), 1));
+                    $localstorage.setObject("all-obligations", {
+                        allObligations: allObligations.splice(allObligations.indexOf(obligationToDelete), 1)
+                    });
+                    $state.reload();
+                } else {
+                    $state.reload();
+                }
+            });
         }
 
         var datePickerCallback = function (val) {
             if (!val) {
-                console.log('No date selected');
+                 //Nista nije izabrano
             } else {
                 $scope.datepickerObject.inputDate = val;
                 $localstorage.setObject("searched-date", {
@@ -79,11 +74,7 @@
             },
             dateFormat: 'dd-MM-yyyy',
             closeOnSelect: false, 
-        };
-
-        
+        };   
     }
 
-   
-    
 })();
