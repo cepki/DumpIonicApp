@@ -33,7 +33,7 @@ angular.module("scheduleApp", ["ionic", "ngMessages", 'ionic-datepicker', 'ionic
             })
         }
 
-        console.log(!!$localstorage.getObject('all-obligations'));
+
         if(!!$localstorage.getObject('all-obligations'))
         {
             $localstorage.setObject('all-obligations', {

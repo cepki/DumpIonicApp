@@ -8,8 +8,6 @@
         this.description = {};
         var now = new Date(Date.now());
 
-        console.log("U KONTROLLERU SAM");
-
         function getTwoDatesDiffrenceInTime(firstDate, secondDate) {
             var diffrence = Math.abs(secondDate - firstDate);
             var minutesDiffrence = Math.floor((diffrence / 1000) / 60);
@@ -17,7 +15,6 @@
         }
 
         vm.authorizationForm = {
-            //description: "dssadadsasddsaasda",
             startTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), now.getHours(), now.getMinutes()),
             endTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), now.getHours(), now.getMinutes()),
             duration: getTwoDatesDiffrenceInTime(Date.now(), Date.now())
@@ -26,10 +23,9 @@
 
         $scope.$watch(angular.bind(this, function () {
             return this.authorizationForm.startTime;
-        }), function (newVal, oldVal) {
+        }), function (newVal) {
             if(newVal > vm.authorizationForm.endTime)
             {
-                console.log("Novi je veci od starog");
                 vm.authorizationForm.endTime = newVal;
             }
             vm.authorizationForm.duration = getTwoDatesDiffrenceInTime(vm.authorizationForm.endTime, vm.authorizationForm.startTime);
@@ -37,9 +33,8 @@
 
         $scope.$watch(angular.bind(this, function () {
             return this.authorizationForm.endTime; 
-        }), function (newVal, oldVal) {
+        }), function (newVal) {
             if (newVal > vm.authorizationForm.endTime) {
-                console.log("Novi je veci od starog");
                 vm.authorizationForm.endTime = newVal;
             }
         });
@@ -50,16 +45,12 @@
             var startTime = new Date(clickedObligation.startTime);
             var endTime = new Date(clickedObligation.endTime);
 
-            console.log(startTime.getHours());
-
             vm.authorizationForm = {
                 description: clickedObligation.description,
                 startTime: new Date(startTime.getFullYear(), startTime.getMonth(), startTime.getUTCDate(), startTime.getHours(), startTime.getMinutes()),
                 endTime: new Date(endTime.getFullYear(), endTime.getMonth(), endTime.getUTCDate(), endTime.getHours(), endTime.getMinutes()),
                 duration: clickedObligation.duration
             };
-
-            console.log(vm.authorizationForm.startTime);
         }
 
         vm.goBack = function()
@@ -78,8 +69,7 @@
 
                     }
                 });
-            }
-            else
+            } else
             {
                 $state.go('home.main');
             }
