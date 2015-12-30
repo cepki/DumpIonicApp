@@ -39,6 +39,10 @@ angular.module("scheduleApp", ["ionic", "ngMessages", 'ionic-datepicker', 'ionic
             $localstorage.setObject('all-obligations', {
                 allObligations: []
             });
+
+            $localstorage.setObject('searched-date', {
+                date: new Date(Date.now())
+            });
         }
     })();
 })

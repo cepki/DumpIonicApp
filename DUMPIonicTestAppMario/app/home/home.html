@@ -2,16 +2,23 @@
     <ionic-datepicker input-obj="datepickerObject">
         <button class="button button-block button-positive"> {{datepickerObject.inputDate | date:'dd - MMMM - yyyy'}}</button>
     </ionic-datepicker> 
-    <div class="list">
-        <div class="item item-divider">
+    <ion-list can-swipe="true" show-delete="false" show-reorder="false">
+        <ion-item class="item-divider">
             Obaveze
-        </div>
-        <a class="item item-icon-right" ng-repeat="obligation in vm.obligationsForSelectedDate">
+        </ion-item>
+        <ion-item ng-repeat="obligation in vm.obligationsForSelectedDate">
             <h2>Opis: {{obligation.description}}</h2>
             <h2>Pocinje: {{obligation.startTime | date: 'medium'}}</h2>
             <h2>Trajanje: {{obligation.duration}} minuta</h2>
-        </a>
-    </div>
 
-    
+            <ion-option-button class="button-energized"
+                               ng-click="vm.deleteObligation(obligation)">
+                Delete
+            </ion-option-button>
+        </ion-item>
+    </ion-list>
+
 </ion-content>
+
+
+

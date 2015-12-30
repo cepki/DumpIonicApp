@@ -71,7 +71,6 @@
                 $localstorage.setObject('all-obligations', {
                     allObligations: allObligations.allObligations
                 })
-                $state.reload('home.main');
                 $state.transitionTo('home.main', [], { reload: true, inherit: true, notify: true});
             } else {
                 console.log("Nije poslano");
