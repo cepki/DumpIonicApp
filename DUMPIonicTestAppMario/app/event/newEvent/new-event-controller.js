@@ -1,12 +1,14 @@
     (function () {
     'use strict'
 
-    angular.module("scheduleApp").controller("NewEventController", ['$scope', '$state', NewEventController]);
+    angular.module("scheduleApp").controller("NewEventController", ['$scope', '$state', '$localstorage', NewEventController]);
 
-    function NewEventController($scope, $state) {
+    function NewEventController($scope, $state, $localstorage) {
         var vm = this;
         this.description = {};
         var now = new Date(Date.now());
+
+        console.log("U KONTROLLERU SAM");
 
         function getTwoDatesDiffrenceInTime(firstDate, secondDate) {
             var diffrence = Math.abs(secondDate - firstDate);
@@ -15,9 +17,9 @@
         }
 
         vm.authorizationForm = {
-            description: "dsa",
-            startTime: new Date(now.getFullYear(), now.getMonth(), now.getDay(), now.getHours(), now.getMinutes()),
-            endTime: new Date(now.getFullYear(), now.getMonth(), now.getDay(), now.getHours(), now.getMinutes()),
+            description: "dssadadsasddsaasda",
+            startTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), now.getHours(), now.getMinutes()),
+            endTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), now.getHours(), now.getMinutes()),
             duration: getTwoDatesDiffrenceInTime(Date.now(), Date.now())
         };
 
@@ -55,10 +57,22 @@
 
         vm.addNewEvent = function(submitedForm)
         {
-            console.log(submitedForm);
             if (submitedForm.$valid)
             {
-                console.log("Uspjesno");
+                var newObligation = {
+                    startTime: vm.authorizationForm.startTime,
+                    endTime: vm.authorizationForm.endTime,
+                    duration: vm.authorizationForm.duration,
+                    description: vm.authorizationForm.description
+                }
+                
+                var allObligations = $localstorage.getObject('all-obligations');
+                allObligations.allObligations.push(newObligation);
+                $localstorage.setObject('all-obligations', {
+                    allObligations: allObligations.allObligations
+                })
+                $state.reload('home.main');
+                $state.transitionTo('home.main', [], { reload: true, inherit: true, notify: true});
             } else {
                 console.log("Nije poslano");
             }

@@ -1,20 +1,24 @@
 (function(){
     'use strict'
 
-    angular.module("scheduleApp").controller("HomeController", ['$scope', "$state", HomeController]);
+    angular.module("scheduleApp").controller("HomeController", ['$scope', "$state", "$localstorage", "_", HomeController]);
 
-    function HomeController($scope, $state) {
+    function HomeController($scope, $state, $localstorage, _) {
         var vm = this;
+        var dateSplitterFunction = function (chosedTime) {
+            vm.obligationsForSelectedDate = _.filter($localstorage.getObject("all-obligations").allObligations, function (obligation) {
+                return new Date(obligation.startTime).getMonth() === chosedTime.getMonth() &&
+                    new Date(obligation.startTime).getDay() === chosedTime.getDay() &&
+                    new Date(obligation.startTime).getYear() === chosedTime.getYear();
+            });
+        };
+        dateSplitterFunction(new Date(Date.now()));
 
         $scope.addNewEvent = function () {
             $state.go('event.newEvent')
         }
 
-        $scope.nesto = function()
-        {
-            console.log("AAAA");
-        }
-
+       
 
 
         var datePickerCallback = function (val) {
@@ -22,6 +26,7 @@
                 console.log('No date selected');
             } else {
                 $scope.datepickerObject.inputDate = val;
+                dateSplitterFunction(val);
             }
         };
 
@@ -35,7 +40,6 @@
             closeButtonType: 'button-energized', 
             inputDate: new Date(), 
             mondayFirst: true,  
-            //disabledDates: disabledDates, 
             weekDaysList: ["P", "U", "S", "C", "P", "S", "N"], 
             monthList: ["Sijecanj", "Veljaca", "Ozujak", "Travanj", "Svibanj", "Lipanj", "Srpanj", "Kolovoz", "Rujan", "Listopad", "Studeni", "Prosinac"], 
             templateType: 'modal', 

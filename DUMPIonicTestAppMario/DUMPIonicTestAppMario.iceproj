@@ -28,6 +28,7 @@
     <Content Include="app\home\home.html" />
     <Content Include="app\event\newEvent\new-event-controller.js" />
     <Content Include="app\event\event-layout.html" />
+    <Content Include="app\ionic-utils.js" />
     <Content Include="lib\ionic\css\ionic.css">
       <SubType>Content</SubType>
     </Content>
@@ -50,6 +51,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="lib\ionic\js\angular-ui\angular-ui-router.min.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="lib\ionic\js\angular-underscore-module.js">
       <SubType>Content</SubType>
     </Content>
     <Content Include="lib\ionic\js\angular\angular-animate.js">
@@ -102,6 +106,9 @@
     <Content Include="lib\ionic\js\node_modules\angular-messages\index.js" />
     <Content Include="lib\ionic\js\node_modules\angular-messages\package.json" />
     <Content Include="lib\ionic\js\node_modules\angular-messages\README.md" />
+    <Content Include="lib\ionic\js\underscore-min.js">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="lib\ionic\scss\ionic.scss">
       <SubType>Content</SubType>
     </Content>

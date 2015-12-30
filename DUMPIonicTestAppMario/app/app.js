@@ -1,6 +1,6 @@
-angular.module("scheduleApp", ["ionic", "ngMessages", 'ionic-datepicker'])
+angular.module("scheduleApp", ["ionic", "ngMessages", 'ionic-datepicker', 'ionic.utils', 'underscore'])
 
-.run(function ($ionicPlatform) {
+.run(function ($ionicPlatform, $localstorage) {
     $ionicPlatform.ready(function () {
         if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -9,8 +9,38 @@ angular.module("scheduleApp", ["ionic", "ngMessages", 'ionic-datepicker'])
             StatusBar.styleDefault();
         }
     });
+    var now = new Date(Date.now());
+    (function () { //add offten obligations
+        if (!!$localstorage.getObject('jutarnje-plivanje'))
+        {
+            $localstorage.setObject('jutarnje-plivanje', {
+                startTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), 10, 0),
+                endTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), 13, 0),
+                duration: 3,
+                description: "Jutarnje rekreacijsko plivanje"
+            });
+            $localstorage.setObject('popodnevno-plivanje', {
+                startTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), 17, 20),
+                endTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), 19, 10),
+                duration: 110,
+                description: "Jutarnje rekreacijsko plivanje"
+            })
+            $localstorage.setObject('fakultet', {
+                startTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), 8, 0),
+                endTime: new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), 14, 0),
+                duration: 360,
+                description: "Jutarnje rekreacijsko plivanje"
+            })
+        }
 
-
+        console.log(!!$localstorage.getObject('all-obligations'));
+        if(!!$localstorage.getObject('all-obligations'))
+        {
+            $localstorage.setObject('all-obligations', {
+                allObligations: []
+            });
+        }
+    })();
 })
 
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -21,6 +51,7 @@ angular.module("scheduleApp", ["ionic", "ngMessages", 'ionic-datepicker'])
         url: "/home",
         templateUrl: "/app/home/home-layout.html",
         controller: "HomeController as vm",
+        cache: false
     })
     
     .state('home.main', {
@@ -29,7 +60,8 @@ angular.module("scheduleApp", ["ionic", "ngMessages", 'ionic-datepicker'])
             "mainContentForHome": {
                 templateUrl: "/app/home/home.html"
             }
-        }
+        },
+        cache: false
     })
 
     .state('event', {
@@ -37,6 +69,7 @@ angular.module("scheduleApp", ["ionic", "ngMessages", 'ionic-datepicker'])
         url: "/event",
         templateUrl: "/app/event/event-layout.html",
         controller: "NewEventController as vm",
+        cache: false,
     })
 
     .state('event.newEvent', {
@@ -46,6 +79,7 @@ angular.module("scheduleApp", ["ionic", "ngMessages", 'ionic-datepicker'])
                 templateUrl: "/app/event/newEvent/new-event.html"
             }
         },
+        cache: false,
     });
     $urlRouterProvider.otherwise('/home/main');
 });
